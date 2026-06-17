@@ -7,6 +7,8 @@ interface Env {
   port: number;
   databaseUrl: string;
   jwtSecret: string;
+  jwtExpiresIn: string;
+  superAdminPassword: string;
 }
 
 const required = (key: string): string => {
@@ -22,4 +24,6 @@ export const env: Env = {
   port: Number(process.env['PORT'] ?? 3000),
   databaseUrl: required('DATABASE_URL'),
   jwtSecret: required('JWT_SECRET'),
+  jwtExpiresIn: process.env['JWT_EXPIRES_IN'] ?? '7d',
+  superAdminPassword: required('SUPER_ADMIN_PASSWORD'),
 };

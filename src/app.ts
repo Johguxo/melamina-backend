@@ -8,6 +8,7 @@ import { staffRouter } from './modules/staff/staff.routes';
 import { clientsRouter } from './modules/clients/clients.routes';
 import { warehouseRouter } from './modules/warehouse/warehouse.routes';
 import { projectsRouter } from './modules/projects/projects.routes';
+import { usersRouter } from './modules/users/users.routes';
 
 export const createApp = (): Application => {
   const app = express();
@@ -27,6 +28,7 @@ export const createApp = (): Application => {
   });
 
   app.use('/api/auth', authRouter);
+  app.use('/api/users', usersRouter);
   app.use('/api/config', configRouter);
   app.use('/api/staff', staffRouter);
   app.use('/api/clients', clientsRouter);
