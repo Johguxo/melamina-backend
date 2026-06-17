@@ -18,6 +18,12 @@ enum UserRole {
   EMPLOYEE
 }
 
+enum DocumentType {
+  RUC
+  DNI
+  OTHER
+}
+
 model Tenant {
   id          String      @id @default(cuid())
   name        String
@@ -26,6 +32,26 @@ model Tenant {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   users       User[]
+  clients     Client[]
+}
+
+model Client {
+  id             String       @id @default(cuid())
+  tenantId       String
+  tenant         Tenant       @relation(fields: [tenantId], references: [id])
+  name           String
+  documentType   DocumentType
+  documentNumber String
+  phone          String?
+  email          String?
+  address        String?
+  notes          String?
+  deletedAt      DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([tenantId, documentNumber])
+  @@index([tenantId, deletedAt])
 }
 
 model User {
